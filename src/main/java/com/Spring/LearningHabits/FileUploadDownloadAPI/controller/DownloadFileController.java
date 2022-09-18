@@ -19,10 +19,8 @@ public class DownloadFileController implements DownloadFileApi {
     @Override
     public ResponseEntity<Resource> downloadFile() throws MalformedURLException {
         Resource resource = null;
-        Path dirPath = Paths.get("Files-Upload");
-
         String path= "src/main/resources/HarshID Card_2.pdf";
-        Path foundFile=Paths.get("src/main/resources/HarshID Card_2.pdf");
+        Path foundFile=Paths.get(path);
 
         if (foundFile != null) {
            resource= new UrlResource(foundFile.toUri());

@@ -19,7 +19,7 @@ public class UploadController implements UploadFileApi{
 
     @Override
     public ResponseEntity<FileDisplayDetails> uploadDocument(MultipartFile file) throws IOException {
-        Path uploadPath = Paths.get("Files-Upload");
+        Path uploadPath = Paths.get("src/main/resources");
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -30,7 +30,7 @@ public class UploadController implements UploadFileApi{
             fileDisplayDetails.setFileName(file.getOriginalFilename());
             fileDisplayDetails.setDocUuid("Saving here..."+uploadPath+"check in Same directory");
             fileDisplayDetails.setFileCategory(file.getContentType());
-            System.out.println(fileDisplayDetails);
+
         return new ResponseEntity<>(fileDisplayDetails,HttpStatus.OK);}
         catch (Exception e){
             e.getStackTrace();
