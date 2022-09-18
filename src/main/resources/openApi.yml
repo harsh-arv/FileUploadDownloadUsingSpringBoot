@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: FileUploadDownloadService
+  description: |-
+
+  contact:
+    email: harshgandharav680@gmail.com
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+paths:
+  /uploadFile:
+    post:
+      tags:
+        - fileHandling
+      summary: Add a new file
+      description: This APi will upload file
+      operationId: uploadDocument
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileDisplayDetails'
+        '400':
+          description: Input Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: If user is not allowed to upload file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /downloadFile:
+    get:
+      tags:
+        - fileHandling
+      summary: donload file that you uploaded
+      description: This api will allow you to donload file.
+      operationId: downloadFile
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+
+        '400':
+          description: Input Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: If user is not allowed to upload file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    FileDisplayDetails:
+      type: object
+      properties:
+        docUuid:
+          type: integer
+        fileName:
+          type: string
+        fileCategory:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        error:
+          type: string
+        errorMsgs:
+          type: array
+          items:
+            type: string
